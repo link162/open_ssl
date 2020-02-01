@@ -1,0 +1,7 @@
+ft_ssl
+*.o
+obj/
+.DS_Store
+a.out
+file
+test
