@@ -1,19 +1,14 @@
 #include "ft_ssl.h"
 
-void print_from_console(t_ssl *ssl, char *res)
+void print_from_console(t_ssl *ssl, void *res, int len)
 {
 	if (ssl->f_parse)
-		ft_printf("%s", res);
+		write(1, res, len);
 	ft_printf("5d41402abc4b2a76b9719d911017c592\n");
 }
 
-void handle_encryption(t_ssl *ssl, char *res, char **argv)
+void handle_encryption(t_ssl *ssl, char **argv)
 {
-	if (res)
-	{
-		print_from_console(ssl, res);
-		return ;
-	}
 	if (ssl->string)
 	{
 		if (!ssl->f_reverse && !ssl->f_quiet)

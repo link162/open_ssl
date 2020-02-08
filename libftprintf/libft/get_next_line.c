@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:18:21 by ybuhai            #+#    #+#             */
-/*   Updated: 2020/02/08 17:49:38 by ybuhai           ###   ########.fr       */
+/*   Updated: 2019/01/26 17:46:38 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static t_gnl	*ft_check_fd(t_gnl *save, int fd)
 static int		ft_check(char *save, char **line)
 {
 	char	*fin;
-	char	*tmp;
 
 	if (!save)
 		return (0);
@@ -77,9 +76,7 @@ static int		ft_check(char *save, char **line)
 	if (fin != NULL)
 	{
 		*fin = '\0';
-		tmp = ft_strdup(save);
-		*line = ft_strjoin(tmp, "\n");
-		free(tmp);
+		*line = ft_strdup(save);
 		ft_strncpy(save, &fin[1], ft_strlen(&fin[1]) + 1);
 		return (1);
 	}
@@ -89,7 +86,7 @@ static int		ft_check(char *save, char **line)
 		*save = '\0';
 		return (1);
 	}
-	return (-1);
+	return (0);
 }
 
 int				get_next_line(const int fd, char **line)

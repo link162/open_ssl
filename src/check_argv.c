@@ -56,20 +56,21 @@ usage: md5 [-pqr] [-s string] [files ...]\n", argv[i][res]);
 
 void read_string_from_console(t_ssl *ssl)
 {
-	char	*res;
-	char	*tmp;
+	void	*res;
+	void	*tmp;
 	char	buff[BUFFSIZE];
 	int		i;
+	int		res_len;
 
-	res = ft_strnew(0);
+	res_len = 0;
 	while (0 < (i = read(0, buff, BUFFSIZE - 1)))
 	{
-		
-		tmp = ft_strjoin(res, buff);
-		free(res);
-		res = tmp;
+		res = ft_str_concatinate(res, buff, res_len, i);
+		res_len += i;
 	}
-	handle_encryption(ssl, res, NULL);
+	if (i < 0)
+		usage_read_error();
+	print_from_console(ssl, res, res_len);
 	free(res);
 }
 
@@ -80,9 +81,9 @@ void parse_args(t_ssl *ssl)
 	ssl->was_parse = 1;
 	read_string_from_console(ssl);
 	while(--(ssl->f_parse))
-		handle_encryption(ssl, "", NULL);
-	if (ssl->f_reverse)
-		handle_encryption(ssl, "", NULL);
+		print_from_console(ssl, "", 0);
+	if ((ssl->f_reverse || ssl->f_quiet) && !ssl->f_string)
+		print_from_console(ssl, "", 0);
 }
 
 int check_argv(t_ssl *ssl, char **argv)
@@ -109,6 +110,6 @@ int check_argv(t_ssl *ssl, char **argv)
 		read_string_from_console(ssl);
 	else
 		ssl->filename = argv[i++];
-	handle_encryption(ssl, NULL, &argv[i]);
+	handle_encryption(ssl, &argv[i]);
 	return (1);
 }
