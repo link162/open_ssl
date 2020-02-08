@@ -6,11 +6,12 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 17:04:13 by ybuhai            #+#    #+#             */
-/*   Updated: 2020/01/19 01:31:53 by ybuhai           ###   ########.fr       */
+/*   Updated: 2020/02/03 21:56:36 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int		ft_strcmp(const char *s1, const char *s2)
 {

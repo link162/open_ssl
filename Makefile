@@ -1,7 +1,7 @@
 NAME		= ft_ssl
 COMP		= gcc
 FLAGS		= #-Wall -Wextra -Werror -O3
-SRC			= main.c
+SRC			= main.c check_argv.c md5.c sha256.c handle_encryption.c usage.c
 SRC_DIR		= src/
 OBJ_DIR		= obj/
 OBJ			= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
