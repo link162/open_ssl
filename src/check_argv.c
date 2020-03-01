@@ -3,9 +3,9 @@
 int scan_type(t_ssl *ssl, char *str)
 {
 	if (!ft_strcmp(str, "md5"))
-		ssl->func_ptr = md5;
+		ssl->func_ptr = &md5;
 	else if (!ft_strcmp(str, "sha256"))
-		ssl->func_ptr = sha256;
+		ssl->func_ptr = &sha256;
 	if (ssl->func_ptr)
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 12:29:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2020/02/08 19:41:29 by ybuhai           ###   ########.fr       */
+/*   Updated: 2020/03/01 16:48:40 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 # define BUFFSIZE 100
 
 #include "libftprintf.h"
+#include <math.h>
 
 typedef struct	s_ssl
 {
-	void		(*func_ptr)(struct s_ssl *);
+	void		*(*func_ptr)(struct s_ssl *, int len);
 	char		*filename;
 	char		*string;
 	int			f_quiet;
@@ -29,8 +30,8 @@ typedef struct	s_ssl
 }				t_ssl;
 
 int check_argv(t_ssl *ssl, char **arr);
-void md5(t_ssl *ssl);
-void sha256(t_ssl *ssl);
+void *md5(t_ssl *ssl, int len);
+void *sha256(t_ssl *ssl, int len);
 void handle_encryption(t_ssl *ssl, char **argv);
 void usage(char *str);
 void usage_option_requires_argument(void);
