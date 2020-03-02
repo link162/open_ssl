@@ -6,7 +6,7 @@
 /*   By: ybuhai <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 12:29:52 by ybuhai            #+#    #+#             */
-/*   Updated: 2020/03/01 16:48:40 by ybuhai           ###   ########.fr       */
+/*   Updated: 2020/03/02 22:07:06 by ybuhai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 
 #include "libftprintf.h"
 #include <math.h>
+#define F(X, Y, Z) (((X) & (Y)) | ((~X) & (Z)))
+#define G(X, Y, Z) (((X) & (Z)) | ((~Z) & (Y)))
+#define H(X, Y, Z) ((X) ^ (Y) ^ (Z))
+#define I(X, Y, Z) ((Y) ^ ((~Z) | (X)))
 
 typedef struct	s_ssl
 {

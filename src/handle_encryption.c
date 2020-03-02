@@ -9,7 +9,7 @@ void print_from_console(t_ssl *ssl, void *res, int len)
 
 void handle_encryption(t_ssl *ssl, char **argv)
 {
-	ssl->func_ptr(ssl, 5);
+	ssl->func_ptr(ssl, 0);
 	if (ssl->string)
 	{
 		if (!ssl->f_reverse && !ssl->f_quiet)

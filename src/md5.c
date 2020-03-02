@@ -12,55 +12,57 @@ void set_table(int *table)
 	}
 }
 
-uint32_t F(uint32_t X, uint32_t Y, uint32_t Z)
-{
-	return ((X & Y) | (~X & Z));
-}
-
-uint32_t G(uint32_t X, uint32_t Y, uint32_t Z)
-{
-	return ((X & Z) | (~Z & Y));
-}
-
-uint32_t H(uint32_t X, uint32_t Y, uint32_t Z)
-{
-	return (X ^ Y ^ Z);
-}
-
-uint32_t I(uint32_t X, uint32_t Y, uint32_t Z)
-{
-	return (Y ^ (~Z | X));
-}
-
 void *md5(t_ssl *ssl, int len)
 {
-	char *str = malloc(512);
+	uint32_t *str = malloc(512);
 	int table[64];
 
 	ft_bzero(str, 512);
-	//ft_memcpy(str, ssl->string, len);
 	str[0] = 0x80;
-	str[511] = len;
 	set_table(table);
-	static uint32_t A = 0x01234567;
-	static uint32_t B = 0x89ABCDEF;
-	static uint32_t C = 0xFEDCBA98;
-	static uint32_t D = 0x76543210;
-	for (int i = 0; i < 16; i++)
+	static uint32_t ABCD[4];
+	static uint32_t abcd[4];
+	ABCD[0] = 0x01234567;
+	ABCD[1] = 0x89ABCDEF;
+	ABCD[2] = 0xFEDCBA98;
+	ABCD[3] = 0x76543210;
+	ft_memcpy(abcd, ABCD, 128);
+	uint32_t s[4][4] = {{7, 12, 17, 22}, {5,  9, 14, 20}, {4, 11, 16, 23}, {6, 10, 15, 21}};
+	uint32_t f, g;
+	for (int i = 0; i < 64; i++)
 	{
-		
+		if (i >= 0 && i <= 15)
+		{
+			f = F(ABCD[1], ABCD[2], ABCD[3]);
+			g = i;
+		}
+		if (i >= 16 && i <= 31)
+		{
+			f = G(ABCD[1], ABCD[2], ABCD[3]);
+			g = (i * 5 + 1) % 16;
+		}
+		if (i >= 32 && i <= 47)
+		{
+			f = H(ABCD[1], ABCD[2], ABCD[3]);
+			g = (i * 3 + 5) % 16;
+		}
+		if (i >= 48 && i <= 63)
+		{
+			f = I(ABCD[1], ABCD[2], ABCD[3]);
+			g = i * 7;
+		}
+		f = f + ABCD[0] + table[i] + str[g];
+		ABCD[0] = ABCD[3];
+		ABCD[3] = ABCD[2];
+		ABCD[2] = ABCD[1];
+		ABCD[1] = ABCD[1] + ((f << s[i / 16][i % 4]) | (f >> (31 - s[i / 16][i % 4])));
 	}
-	for (int i = 0; i < 16; i++)
-	{
-		
-	}
-	for (int i = 0; i < 16; i++)
-	{
-		
-	}
-	for (int i = 0; i < 16; i++)
-	{
-		
-	}
+	abcd[0] += ABCD[0];
+	abcd[1] += ABCD[1];
+	abcd[2] += ABCD[2];
+	abcd[3] += ABCD[3];
+	for(int t = 0; t < 4; t++)
+		ft_printf("%x", abcd[t]);
+	ft_printf("\n");
 	return NULL;
 }
